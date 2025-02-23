@@ -12,8 +12,5 @@ public class EquipoDto {
         private String nombre;
         private String descripcion;
         private int audUsuario;
-
-
-
     }
 }
