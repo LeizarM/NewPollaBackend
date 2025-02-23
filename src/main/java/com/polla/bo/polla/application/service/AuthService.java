@@ -33,6 +33,7 @@ public class AuthService {
         String token = jwtConfig.generateToken(user.getUsuario(), user.getEsAdmin());
 
         return LoginResponse.builder()
+                .codUsuario(user.getCodUsuario())
                 .token(token)
                 .usuario(user.getUsuario())
                 .esAdmin(user.getEsAdmin())

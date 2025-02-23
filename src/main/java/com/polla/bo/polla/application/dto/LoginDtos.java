@@ -14,6 +14,7 @@ public class LoginDtos {
     @Data
     @Builder
     public static class LoginResponse {
+        private int codUsuario;
         private String token;
         private String usuario;
         private int esAdmin;
