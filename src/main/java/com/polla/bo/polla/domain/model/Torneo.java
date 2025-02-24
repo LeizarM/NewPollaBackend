@@ -9,6 +9,7 @@ import java.util.Date;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class Torneo {
 
     private int codTorneo;

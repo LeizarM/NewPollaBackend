@@ -1,7 +1,9 @@
 package com.polla.bo.polla.infrastructure.rest;
 
 import com.polla.bo.polla.domain.model.Equipo;
+import com.polla.bo.polla.domain.model.Torneo;
 import com.polla.bo.polla.infrastructure.persistence.EquipoRepositoryImpl;
+import com.polla.bo.polla.infrastructure.persistence.TorneoRepositoryImpl;
 import com.polla.bo.polla.utils.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +26,7 @@ public class PollaController {
     private static final String ERROR_MESSAGE = "Error en la solicitud";
 
     private final EquipoRepositoryImpl equipoRepository;
+    private final TorneoRepositoryImpl torneoRepository;
 
 
     @PostMapping("/lst-equipos")
@@ -64,6 +67,23 @@ public class PollaController {
         }
     }
 
+
+    @PostMapping("/lst-torneos")
+    public ResponseEntity<?> obtenerTorneos() {
+        try {
+            List<Torneo> torneo = torneoRepository.getAll();
+
+            if ( torneo.isEmpty() ) {
+                return buildSuccessResponse(HttpStatus.NO_CONTENT, "No se encontraron empresas");
+            }
+
+            return ResponseEntity.ok()
+                    .body(new ApiResponse<>(SUCCESS_MESSAGE, torneo, HttpStatus.OK.value()));
+
+        } catch (Exception e) {
+            return buildErrorResponse(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage());
+        }
+    }
 
 
 

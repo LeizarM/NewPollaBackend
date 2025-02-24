@@ -50,6 +50,9 @@ public class EquipoRepositoryImpl implements EquipoRepository {
 
     @Override
     public boolean register(Equipo equipo, String acc) {
+
+        System.out.println("Equipo: " + equipo.toString());
+
         String sql = "execute p_abm_equipo @codEquipo=?, @nombre=?, @descripcion=?, @audUsuario=?, @rutaBanderaImgPagina=?, @ACCION=?";
 
         try {
