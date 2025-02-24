@@ -3,6 +3,7 @@ package com.polla.bo.polla.infrastructure.persistence;
 import com.polla.bo.polla.domain.model.Equipo;
 import com.polla.bo.polla.domain.model.Torneo;
 import com.polla.bo.polla.domain.repository.TorneoRepository;
+import com.polla.bo.polla.infrastructure.utils.ParameterSetter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -49,6 +50,20 @@ public class TorneoRepositoryImpl implements TorneoRepository {
 
     @Override
     public boolean register(Torneo torneo, String acc) {
-        return false;
+
+
+        String sql = "execute p_abm_Torneo @codTorneo=?, @nombre=?, @fechaInicio=?, @fechaFin=?, @montoTotal=?, @montoFecha=?, @montoPolla=?, @finalizado=? ,@audUsuario=?, @ACCION=?";
+
+        try {
+            jdbcTemplate.update(sql, ps -> ParameterSetter.setParameters(ps, torneo, acc));
+            return true;
+        }catch ( Exception e){
+
+            log.error("Error registering Torneo: {}", torneo.getNombre(), e);
+            throw new RuntimeException("Error registering torneo", e);
+
+        }
+
+
     }
 }

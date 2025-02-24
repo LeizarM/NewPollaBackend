@@ -86,6 +86,27 @@ public class PollaController {
     }
 
 
+    @PostMapping("/register-torneo")
+    public ResponseEntity<ApiResponse<?>> registerTorneo(@RequestBody Torneo mb) {
+
+        String accion = mb.getCodTorneo() == 0 ? "I" : "U";
+
+        try {
+            boolean operationSuccess =torneoRepository.register(mb, accion);
+
+            if (!operationSuccess) {
+                return buildErrorResponse(HttpStatus.BAD_REQUEST, ERROR_MESSAGE);
+            }
+
+
+            HttpStatus status = accion.equals("I") ? HttpStatus.CREATED : HttpStatus.OK;
+            return buildSuccessResponse(status, SUCCESS_MESSAGE);
+        } catch (Exception e) {
+            return buildErrorResponse(HttpStatus.CONFLICT, "Error al registrar el Torneo");
+        }
+    }
+
+
 
 
     private ResponseEntity<ApiResponse<?>> buildErrorResponse(BindingResult result) {

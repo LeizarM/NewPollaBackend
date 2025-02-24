@@ -9,7 +9,8 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EquipoTorneo {
-    private String codEqParticipante;
+
+    private int codEqParticipante;
     private int codTorneo;
     private int codEquipo;
     private int enCuartos;
